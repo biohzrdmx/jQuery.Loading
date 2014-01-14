@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery Loading</title>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+	<style>
+        body { padding-top: 70px; }
+        .example1 { position: relative; }
+        .example2 { position: relative; }
+        .example3 { position: relative; }
+		.contents {
+			min-height: 260px;
+			position: relative;
+		}
+		.loading {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			left: 0;
+			top: 0;
+			background: url('loading.gif') center center no-repeat white;
+		}
+		.loading.fancy {
+			background: url('loading2.gif') center center no-repeat rgba(255,255,255,0.65);
+		}
+	</style>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container"><!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">jQuery Loading</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <!-- <li class="active"><a href="#">Overview</a></li> -->
+            </ul>
+            </div><!-- /.navbar-collapse --></div>
+    </nav>
+    <div class="container">
+        <h2>Introduction</h2>
+        <p>Presenting the easiest way to add 'loading' overlays and messages to containers and buttons.</p>
+        <p>And it's free! ('free', as in 'beer')</p>
+
+        <h3>Credits</h3>
+        <p><strong>Lead coder:</strong> biohzrdmx <a href="http://github.com/biohzrdmx">&lt;github.com/biohzrdmx&gt;</a></p>
+
+        <h3>License</h3>
+        <p>The MIT License (MIT)</p>
+        <p>Copyright (c) 2013 biohzrdmx</p>
+        <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+        <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+        <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+        <h2>Basic usage</h2>
+        <p>Say you want to load some content asynchronously, but you want to tell your users 'hey, it is loading, wait a minute'. Just place your container and call a single function before fetching your content and call another one after you content has been loaded. Profit! It can't be easier!</p>
+		<p><strong>HTML</strong></p>
+		<pre><code>&lt;div class=&quot;well example1&quot;&gt;
+    I'm an empty container
+&lt;/div&gt;
+&lt;button class=&quot;btn btn-primary btn-example1&quot;&gt;Fetch contents&lt;/button&gt;</code></pre>
+		<p><strong>JS</strong></p>
+		<pre><code>$('button.btn-example1').on('click', function(e) {
+    e.preventDefault();
+    $('.example1').loading();
+    setTimeout(function() {
+        $('.example1').loading('done');
+        $('.example1').html('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, aliquid praesentium harum voluptates odit cumque dolores quidem qui! Adipisci quo temporibus dolorum odio consequatur praesentium! Tempore, inventore corporis fugit perferendis.');
+    }, 1000);
+    return false;
+});
+</code></pre>
+		<p>As you can see, you just need to call <code>$('container-selector').loading()</code> before fetching the contents and <code>$('container-selector').loading('done')</code> after the content has been fetched.</p>
+		<div class="well example1">
+			I'm an empty container
+		</div>
+		<p><button class="btn btn-primary btn-example1">Fetch contents</button></p>
+
+        <h2>And it's for buttons too</h2>
+        <p>Now you may want to disable the submit button and keep it disabled while the content is being fetched; a message on that button saying 'hey, don't click me, the contents are being loaded' would be nice too.</p>
+        <p>With this tiny plugin you can do so easily and with a single line of code! Let's augment our previous example:</p>
+		<p><strong>HTML</strong></p>
+		<pre><code>&lt;div class=&quot;well example2&quot;&gt;
+    I'm an empty container too
+&lt;/div&gt;
+&lt;button class=&quot;btn btn-primary btn-example2&quot;&gt;Fetch contents&lt;/button&gt;</code></pre>
+		<p><strong>JS</strong></p>
+		<pre><code>$('button.btn-example2').on('click', function(e) {
+    e.preventDefault();
+    $('.example2').loading();
+    setTimeout(function() {
+        $('.example2').loading('done');
+        $('.example2').html('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, aliquid praesentium harum voluptates odit cumque dolores quidem qui! Adipisci quo temporibus dolorum odio consequatur praesentium! Tempore, inventore corporis fugit perferendis.');
+    }, 1000);
+    return false;
+});
+</code></pre>
+		<p>Same function, but this time we've specified the text we want on the button <code>$('button-selector').loading({ text: 'Some clever text' })</code>. We've also called <code>$('button-selector').loading('done')</code> after the content has been fetched.</p>
+		<div class="well example2">
+			I'm an empty container too
+		</div>
+		<p><button class="btn btn-primary btn-example2">Fetch contents</button></p>
+
+        <h2>Getting fancy</h2>
+        <p>As with all of my other plugins, you may customize the s**t out of this f**ker!</p>
+		<p><strong>HTML</strong></p>
+		<pre><code>&lt;div class=&quot;well example3&quot;&gt;
+    I'm another empty container
+&lt;/div&gt;
+&lt;button class=&quot;btn btn-primary btn-example3&quot;&gt;Fetch contents&lt;/button&gt;</code></pre>
+		<p><strong>JS</strong></p>
+		<pre><code>$('button.btn-example3').on('click', function(e) {
+    e.preventDefault();
+    $('.example3').loading();
+    setTimeout(function() {
+        $('.example3').loading('done');
+        $('.example3').html('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, aliquid praesentium harum voluptates odit cumque dolores quidem qui! Adipisci quo temporibus dolorum odio consequatur praesentium! Tempore, inventore corporis fugit perferendis.');
+    }, 1000);
+    return false;
+});
+</code></pre>
+		<div class="well example3">
+			I'm another empty container
+		</div>
+		<p><button class="btn btn-primary btn-example3">Fetch contents</button></p>
+		<p class="text-info hide">This is the internets, so expect more cats on the future!</p>
+
+        <h2>Another Example</h2>
+		<div class="contents">
+			<p>Empty area</p>
+		</div>
+		<p><button class="btn btn-primary btn-fetch">Fetch contents</button></p>
+
+        <h2>Troubleshooting</h2>
+        <p>This plugin works on IE7+, Firefox and Chrome. Opera should be fine too.</p>
+        <p>If you can't see the loading overlay then check your stylesheets as they may be the cause. Also check if any extra elements are created in the DOM (and where).</p>
+        <hr>
+        <p class="text-center text-muted"><small>biohzrdmx</small></p>
+	</div>
+	<div class="ajax hidden">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur, rerum, sunt saepe molestiae soluta similique maiores illum rem ut vitae error nostrum incidunt deleniti quibusdam ipsa veritatis eos animi neque.</p>
+		<p>Deserunt, aut, rem, soluta deleniti dolore similique quidem atque consequuntur ex unde ipsa iusto omnis repudiandae officiis mollitia eos facilis veniam porro doloribus tenetur consectetur impedit non. Aliquid, voluptate facilis.</p>
+		<p>Ducimus libero ut nulla cumque placeat ipsam eligendi debitis quae excepturi fugit. Sint, ducimus, dicta, voluptate magnam placeat itaque nesciunt beatae qui corporis similique consectetur quisquam perferendis dolor. Assumenda, quisquam!</p>
+		<p>Ullam, in, aspernatur, cum, consequatur vel voluptates placeat ab nesciunt animi nihil dolore aliquid alias ducimus enim esse numquam neque itaque rem architecto id incidunt molestias suscipit laborum odio ipsum?</p>
+		<p>Incidunt, distinctio voluptas repellendus asperiores cum laudantium ullam tempora hic obcaecati animi odit natus nisi voluptate. Earum, ullam, quibusdam, veritatis, nihil sint nisi dolor et modi aliquam dolorum repudiandae iure.</p>
+	</div>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js"></script>
+	<script src="jquery.loading.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$('button.btn-fetch').on('click', function(e) {
+				e.preventDefault();
+				var btn = $(this);
+				var src = $('.ajax').children();
+				var dst = $('.contents');
+				dst.loading({ emptyParent: true });
+				btn.loading({ text: 'Fetching...' });
+				setTimeout(function() {
+					dst.loading('done');
+					btn.loading('done');
+					dst.append( src.clone() );
+				}, 1000);
+				return false;
+			});
+
+			$('button.btn-example1').on('click', function(e) {
+				e.preventDefault();
+				$('.example1').loading();
+				setTimeout(function() {
+					$('.example1').loading('done');
+					$('.example1').html('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, aliquid praesentium harum voluptates odit cumque dolores quidem qui! Adipisci quo temporibus dolorum odio consequatur praesentium! Tempore, inventore corporis fugit perferendis.');
+				}, 1000);
+				return false;
+			});
+
+			$('button.btn-example2').on('click', function(e) {
+				e.preventDefault();
+				$('.example2').loading();
+				$('.btn-example2').loading({ text: 'Fetching, groovy!' })
+				setTimeout(function() {
+					$('.example2').loading('done');
+					$('.btn-example2').loading('done');
+					$('.example2').html('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, aliquid praesentium harum voluptates odit cumque dolores quidem qui! Adipisci quo temporibus dolorum odio consequatur praesentium! Tempore, inventore corporis fugit perferendis.');
+				}, 1000);
+				return false;
+			});
+
+			$('button.btn-example3').on('click', function(e) {
+				e.preventDefault();
+				$('.example3').loading({ themeClass: 'fancy' });
+				$('.btn-example3').loading({ text: 'I can haz sum contentz...' })
+				setTimeout(function() {
+					$('.example3').loading('done');
+					$('.btn-example3').loading('done');
+					$('.text-info').removeClass('hide');
+					$('.example3').html('Shed everywhere run hiss lay down in your way litter box, sleep in the sink eat litter box catnip bat fluffy fur sunbathe. Attack feed me sunbathe chuf fluffy fur, sleep in the sink sleep on your face zzz chase the red dot meow. Chase the red dot fluffy fur run sleep on your face I don\'t like that food, sleep on your keyboard jump sunbathe knock over the lamp sleep on your face. Judging you kittens claw claw bat toss the mousie, meow jump meow eat the grass claw climb the curtains. Sunbathe hiss sniff leap, sunbathe attack sniff jump judging you climb the curtains. Feed me scratched sleep in the sink chase the red dot puking biting, shed everywhere catnip bat litter box eat. Sleep on your face meow chuf jump biting leap, catnip scratched leap fluffy fur shed everywhere chase the red dot. Sleep in the sink sleep on your keyboard toss the mousie sunbathe scratched, biting attack your ankles chase the red dot judging you hiss lick lick.');
+				}, 1000);
+				return false;
+			});
+		});
+	</script>
+</body>
+</html>
